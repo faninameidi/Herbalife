@@ -111,6 +111,14 @@
             </div>
           </div>
 
+          <div class="form-group row">
+            <label for="tanggal" class="col-sm-3 col-form-label">Tanggal </label>
+            <div class="col-sm-8">
+              <input type="date" name="tanggal" class="form-control" placeholder="lemak_perutL" value="<?php echo set_value('tanggal'); ?>" >
+              <?php echo  form_error('tanggal') ?>
+            </div>
+          </div>
+
           <center><button type="submit" class="btn btn-primary" name="submit"><span class="oi oi-person"></span> TAMBAH </button></center>
         </div>
         <?php echo form_close(); ?>

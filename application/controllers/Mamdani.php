@@ -22,10 +22,9 @@ class Analisis extends CI_Controller
 		$data['page'] = 'Analisis.php';
 		$this->load->view('Admin/menu', $data);
 	}
-
-	public function hitung($id_analisis = null)
+	public function hitung($id_analisis)
 	{
-		$id_analisis = 2;
+		// $id_analisis = 1;
 
 		$db_analisis = $this->db->where('id_analisis', $id_analisis)->get('analisis')->row();
 
@@ -111,23 +110,26 @@ class Analisis extends CI_Controller
 				'mixed' => 'tidak_butuh'
 			],
 		];
-		$arr_data_rules[] = [
-			'condition' => [
-				'usia' => 'muda',
-				'lemak_tubuh' => 'kurang',
-				'massa_tulang' => 'kurang',
-				'lemak_perut' => 'rendah',
-			],
-			'rules' => [
-				'shake' => 'sangat_butuh',
-				'aloe' => 'sangat_butuh',
-				'thermo' => 'tidak_butuh',
-				'nrg' => 'sangat_butuh',
-				'ppp' => 'sangat_butuh',
-				'mixed' => 'tidak_butuh'
-			],
-		];
-
+		$arr_data_rules = [];
+		$db_rule = $this->db->get('rule')->result();
+		foreach ($db_rule as $key => $value) {
+			$arr_data_rules[] = [
+				'condition' => [
+					'usia' => $value->usia,
+					'lemak_tubuh' => $value->lemak_tubuh,
+					'massa_tulang' => $value->massa_tulang,
+					'lemak_perut' => $value->lemak_perut,
+				],
+				'rules' => [
+					'shake' => $value->shake,
+					'aloe' => $value->aloe,
+					'thermo' => $value->thermo,
+					'nrg' => $value->nrg,
+					'ppp' => $value->ppp,
+					'mixed' => $value->mixed_fiber,
+				],
+			];
+		}
 
 		foreach ($arr_data_rules as $key => $data_rules) {
 			$get_fuzzy = [];
@@ -138,9 +140,50 @@ class Analisis extends CI_Controller
 			$arr_data_rules[$key]['nilai'] = min($get_fuzzy);
 		}
 
+		$komposisi_aturan = [];
+		foreach ($arr_data_rules as $key => $value) {
+			foreach ($value['rules'] as $k => $v) {
+				$komposisi_aturan[$k][$v]['data'][] = $value['nilai'];
+			}
+		}
+
+		foreach ($komposisi_aturan as $key => $value) {
+			foreach ($value as $k => $v) {
+				$komposisi_aturan[$key][$k]['max'] = max($v['data']);
+				//debug
+				// unset($komposisi_aturan[$key][$k]['data']);
+			}
+		}
+
+		$himpunan_z['sangat_butuh'] = [55, 100];
+		$himpunan_z['tidak_butuh'] = [0, 35];
+		$himpunan_z['butuh'] = [30, 55];
+
+		foreach ($komposisi_aturan as $key => $value) {
+			foreach ($value as $k => $v) {
+				$fz = 0;
+				if($v['max'] != 0){
+					$fz = (($himpunan_z[$k][1]-$himpunan_z[$k][0])*$v['max'])+$himpunan_z[$k][0];
+				}
+				$komposisi_aturan[$key][$k]['z'] = $fz;
+			}
+		}
+
+		$hasil_per_produk = [];
+		foreach ($komposisi_aturan as $key => $value) {
+			$top = 0;
+			$down = 0;
+			foreach ($value as $k => $v) {
+				$top += $v['max']*$v['z'];
+				$down += $v['max'];
+			}
+			$komposisi_aturan[$key]['z*'] = $top/$down;
+			$hasil_per_produk[$key] = $top/$down;
+		}
 
 
-		dd($arr_data_rules);
+		echo "<pre>";
+		var_dump($hasil_per_produk);
 	}
 
 

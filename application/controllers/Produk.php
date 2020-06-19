@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Produk extends CI_Controller {
 
-
+//BUAT MANGGIL" FUNGSI DI CI
 	function __construct(){
 		parent::__construct();
 		$this->load->library(array('form_validation','session'));

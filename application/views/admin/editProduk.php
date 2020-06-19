@@ -40,6 +40,38 @@
           </div>
 
           <div class="form-group row">
+            <label class="col-sm-3 col-form-label"> usia </label>
+            <div class="col-sm-8">
+              <input type="hidden" name="usia" value="<?php echo $key->usia ?>">
+              <input type="text" name="usia" class="form-control" placeholder="usia"  value="<?php echo $key->usia ?>" >
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label"> lemak_tubuh </label>
+            <div class="col-sm-8">
+              <input type="hidden" name="lemak_tubuh" value="<?php echo $key->lemak_tubuh ?>">
+              <input type="text" name="lemak_tubuh" class="form-control" placeholder="lemak_tubuh"  value="<?php echo $key->lemak_tubuh ?>" >
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label"> massa_tulang </label>
+            <div class="col-sm-8">
+              <input type="hidden" name="massa_tulang" value="<?php echo $key->massa_tulang ?>">
+              <input type="text" name="massa_tulang" class="form-control" placeholder="massa_tulang"  value="<?php echo $key->massa_tulang ?>" >
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label"> lemak_perut </label>
+            <div class="col-sm-8">
+              <input type="hidden" name="lemak_perut" value="<?php echo $key->lemak_perut ?>">
+              <input type="text" name="lemak_perut" class="form-control" placeholder="lemak_perut"  value="<?php echo $key->lemak_perut ?>" >
+            </div>
+          </div>
+
+          <div class="form-group row">
             <label for="image" class="col-sm-3 col-form-label"> Image </label>
             <div class="col-sm-8">
               <img src="<?php echo base_url('Upload/'.$key->image) ?>" style="width: 50px;height: 50px;">

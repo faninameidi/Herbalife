@@ -45,6 +45,10 @@
                   <th>Nama Produk</th>
                   <th>Kode Produk</th>
                   <th>Keterangan</th> 
+                  <th>Usia</th>
+                  <th>Lemak Tubuh</th>
+                  <th>Massa Tulang</th>
+                  <th>Lemak Perut</th>
                   <th>Image</th>
                   <th>Action</th>
                 </tr>
@@ -62,6 +66,10 @@
                   <td><?php echo $key->nama_produk;?></td>
                   <td><?php echo $key->kode_produk;?></td>
                   <td><?php echo $key->keterangan;?></td>
+                  <td><?php echo $key->usia;?></td>
+                  <td><?php echo $key->lemak_tubuh;?></td>
+                  <td><?php echo $key->massa_tulang;?></td>
+                  <td><?php echo $key->lemak_perut;?></td>
                    <td><img src="<?php echo base_url('Upload/'.$key->image) ?>" style="width: 50px;height: 50px;"></td>
                   <td>
                     <a href="<?= base_url() ?>Produk/ubahProduk/<?= $key->id_produk?>" class="btn btn-success"><span class="glyphicon glyphicon-edit"> Edit</span></a></button> &emsp;

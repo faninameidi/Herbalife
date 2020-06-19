@@ -14,7 +14,16 @@ class M_Analisis extends CI_Model {
 		return $query->result();
 	}
 
-	public function inputData($upload)
+	public function getDataHasilAnalisis($id)
+	{
+		$this->db->select('*');
+		$this->db->from('output');
+		$this->db->where('fk_id_analisis',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function inputData()
 	{
 		$data = array(
 			'nama'=>$this->input->post('nama'),
@@ -28,8 +37,14 @@ class M_Analisis extends CI_Model {
 			'bmr_kalori'=>$this->input->post('bmr_kalori'),
 			'usia_sel'=>$this->input->post('usia_sel'),
 			'massa_tulang'=>$this->input->post('massa_tulang'),
-			'lemak_perut'=>$this->input->post('lemak_perut'),);
+			'lemak_perut'=>$this->input->post('lemak_perut'),
+			'tanggal'=>$this->input->post('tanggal'));
 		$this->db->insert('analisis', $data);
+	}
+
+	public function input($data,$table)
+	{
+		$this->db->insert($table,$data);
 	}
 
 		//edit
@@ -55,7 +70,8 @@ class M_Analisis extends CI_Model {
 			'bmr_kalori'=>$this->input->post('bmr_kalori'),
 			'usia_sel'=>$this->input->post('usia_sel'),
 			'massa_tulang'=>$this->input->post('massa_tulang'),
-			'lemak_perut'=>$this->input->post('lemak_perut'),);
+			'lemak_perut'=>$this->input->post('lemak_perut'),
+			'tanggal'=>$this->input->post('tanggal'));
 		$data = $this->input->post();
 		if($upload_name!=null){
 			$data['image'] = $upload_name;

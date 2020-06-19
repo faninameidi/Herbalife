@@ -49,6 +49,10 @@ class M_Produk extends CI_Model {
 			'nama_produk'=>$this->input->post('nama_produk'),
 			'kode_produk'=>$this->input->post('kode_produk'),
 			'keterangan'=>$this->input->post('keterangan'),
+			'usia'=>$this->input->post('usia'),
+			'lemak_tubuh'=>$this->input->post('lemak_tubuh'),
+			'massa_tulang'=>$this->input->post('massa_tulang'),
+			'lemak_perut'=>$this->input->post('lemak_perut'),
 			'image' => $upload['file']['file_name']);
 		$this->db->insert('produk', $data);
 	}
@@ -68,6 +72,10 @@ class M_Produk extends CI_Model {
 			'nama_produk'=>$this->input->post('nama_produk'),
 			'kode_produk'=>$this->input->post('kode_produk'),
 			'keterangan'=>$this->input->post('keterangan'),
+			'usia'=>$this->input->post('usia'),
+			'lemak_tubuh'=>$this->input->post('lemak_tubuh'),
+			'massa_tulang'=>$this->input->post('massa_tulang'),
+			'lemak_perut'=>$this->input->post('lemak_perut'),
 		);
 		$data = $this->input->post();
 		if($upload_name!=null){

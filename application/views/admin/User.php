@@ -7,7 +7,7 @@
     <div class=" col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h3>DATA USER</h3>
+          <h3>DATA COACH</h3>
 
           <div class="clearfix"></div>
         </div>

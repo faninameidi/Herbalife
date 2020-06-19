@@ -119,6 +119,15 @@
               <input type="text" name="lemak_perut" class="form-control" placeholder="lemak perut"  value="<?php echo $key->lemak_perut ?>" >
             </div>
           </div>
+
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label"> Tanggal </label>
+            <div class="col-sm-8">
+              <input type="hidden" name="tanggal" value="<?php echo $key->tanggal ?>">
+              <input type="date" name="tanggal" class="form-control" placeholder="Tanggal"  value="<?php echo $key->tanggal ?>" >
+            </div>
+          </div>
+
           <div class="page-header">
             <input type="submit" class="btn btn-success" value="EDIT">&nbsp;&nbsp;
 

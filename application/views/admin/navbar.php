@@ -30,7 +30,6 @@
                   <li><a><i class="fa fa-list-alt"></i> Produk <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>Produk">Data Produk</a></li>
-                      <li><a href="<?php echo base_url();?>paket">Paket Produk</a></li>
                     </ul>
                   </li>
 

@@ -7,13 +7,11 @@
     <div class=" col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h3>DATA  RULE</h3>
+          <h3>DATA  HASIL KONSUMEN DAN REKOMENDASI PEMILIHAN PRODUK</h3>
 
           <div class="clearfix"></div>
         </div>
         <br>
-
-        <a href="<?php echo base_url(). "Rule/addRule"; ?>"><button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>TAMBAH</button></a> <br><br>
 
         <?php if ($this->session->flashdata('success')) {?>
           <div class="alert alert-success alert-dismissible" role="alert">
@@ -38,10 +36,10 @@
               </div>
             <?php } ?>
             <div class="table-responsive">
-            <table class="table table-striped table-bordered data">
+            <table class="table table-striped table-bordered">
               <thead>
                 <tr class="bg-group">
-                  <th width="5px">ID Rule</th>
+                  <th width="5px">ID Output</th>
                   <th>Usia</th>
                   <th>Lemak Tubuh</th>
                   <th>Massa Tulang</th>
@@ -52,14 +50,12 @@
                   <th>Nrg Tea</th>
                   <th>PPP</th>
                   <th>Mixed Fiber</th>
-
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php 
                 $i=1;
-                foreach ($rule as $key) 
+                foreach ($getData as $key) 
                 {
                    //$harga = number_format($key->harga,0,',','.');
 
@@ -77,10 +73,6 @@
                   <td><?php echo $key->ppp;?></td>
                   <td><?php echo $key->mixed_fiber;?></td>
 
-                <td>
-
-                    <a href="<?= base_url() ?>Rule/ubahRule/<?= $key->id_rule?>" class="btn btn-success"><span class="glyphicon glyphicon-edit"> Edit</span></a></button> &emsp;
-                    <a href="<?= base_url() ?>Rule/hapus_Rule/<?= $key->id_rule?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"> Delete</span></a></button>
                   </td>
                 </tr>
                 <?php
