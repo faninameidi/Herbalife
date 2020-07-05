@@ -10,7 +10,7 @@ class Analisis extends CI_Controller
 		parent::__construct();
 		$this->load->library(array('form_validation', 'session'));
 
-		$this->load->model('M_Analisis');
+		$this->load->model('M_analisis');
 		if (!$this->session->userdata('username')) {
 			redirect('Login');
 		}
@@ -18,9 +18,9 @@ class Analisis extends CI_Controller
 
 	public function index()
 	{
-		$data['analisis'] = $this->M_Analisis->getDataAnalisis();
+		$data['analisis'] = $this->M_analisis->getDataAnalisis();
 		$data['page'] = 'Analisis.php';
-		$this->load->view('Admin/menu', $data);
+		$this->load->view('Admin/Menu', $data);
 	}
 
 	public function simpanhasilAnalisis($id)
@@ -29,6 +29,8 @@ class Analisis extends CI_Controller
 			'fk_id_analisis' => $id,
 			'usia' => $this->input->post('usia'),
 			'lemak_tubuh' => $this->input->post('lemak_tubuh'),  
+			'kadar_air' => $this->input->post('kadar_air'),
+			'postur_tubuh' => $this->input->post('postur_tubuh'),
 			'massa_tulang' => $this->input->post('massa_tulang'), 
 			'lemak_perut' => $this->input->post('lemak_perut'), 
 			'shake' => $this->input->post('shake'), 
@@ -44,10 +46,10 @@ class Analisis extends CI_Controller
 
 		$db_analisis = $this->db->where('fk_id_analisis', $id)->get('output')->row();
 		if ($db_analisis == null) {
-			$this->M_Analisis->input($data,'output');
+			$this->M_analisis->input($data,'output');
 		}
 		else{
-			$this->M_Analisis->update_data($where,$data,'output');
+			$this->M_analisis->update_data($where,$data,'output');
 		}
 		redirect('Analisis');
 
@@ -55,16 +57,16 @@ class Analisis extends CI_Controller
 
 	public function hasil_analisis($id)
 	{
-		$data['getData']= $this->M_Analisis->getDataHasilAnalisis($id);
-		$data['page'] = 'hasil.php';
-		$this->load->view('Admin/menu',$data);
+		$data['getData']= $this->M_analisis->getDataHasilAnalisis($id);
+		$data['page'] = 'Hasil.php';
+		$this->load->view('Admin/Menu',$data);
 
 	}
 
 	public function addAnalisis()
 	{
 		$data['page'] = 'addAnalisis.php';
-		$this->load->view('Admin/menu', $data);
+		$this->load->view('Admin/Menu', $data);
 	}
 
 	public function simpanAnalisis()
@@ -76,18 +78,20 @@ class Analisis extends CI_Controller
 		//        jika anda mau, anda bisa mengatur tampilan pesan error dengan menambahkan element dan css nya
 		$this->form_validation->set_error_delimiters('<div style="color:red; margin-bottom: 5px">', '</div>');
 		$this->form_validation->set_rules('nama', 'nama', 'required');
+		$this->form_validation->set_rules('usia', 'usia', 'required');
+		$this->form_validation->set_rules('tinggi', 'tinggi', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
 			$data['page'] = 'addAnalisis.php';
-			$this->load->view('Admin/menu', $data);
+			$this->load->view('Admin/Menu', $data);
 		} else {
-			$this->M_Analisis->inputdata();
+			$this->M_analisis->inputdata();
 			$id_analisis = $this->db->insert_id();
 
 
 		$db_analisis = $this->db->where('id_analisis', $id_analisis)->get('analisis')->row();
 
-
+//tahap 1 fuzzifikasi
 		$himpunan = [
 			'usia' => [
 				'label' => ['muda', 'dewasa', 'tua'],
@@ -114,7 +118,7 @@ class Analisis extends CI_Controller
 				'batas' => [4, 5, 9, 10],
 			]
 		];
-		$data_fuzzy = [];
+		$data_fuzzy = [];//inisialisasi array = 
 		foreach ($himpunan as $kriteria => $data_kriteria) {
 			$nilai_usia = $db_analisis->$kriteria;
 			$batas = $data_kriteria['batas'];
@@ -147,19 +151,22 @@ class Analisis extends CI_Controller
 				$fuzzy[2] = ($batas[2] - $nilai_usia) / ($batas[2] - $batas[3]);
 			}
 
-			foreach ($data_kriteria['label'] as $key => $label) {
+			foreach ($data_kriteria['label'] as $key => $label) {//mengambil label untuk dimasukkan ke $fuzzy dalam bentuk array data fuzzy 
 				$data_fuzzy[$kriteria][$label] = $fuzzy[$key];
 			}
-			$data_fuzzy[$kriteria]['nilai'] = $nilai_usia;
+			$data_fuzzy[$kriteria]['nilai'] = $nilai_usia;// nilai yg diinputkan
 
 		}
 
 
-		// echo "<pre>";
-		// var_dump($data_fuzzy, max($data_fuzzy['usia']));
+		/* echo "<pre>";
+		var_dump($data_fuzzy); //data hasil fuzzifikasi
+		 echo "<pre>";
+		var_dump($himpunan);*/ //array himpunan
+		//fuzzifikasi
 
-		
-		$arr_data_rules[] = [
+//tahap 2 implikasi rule
+		/*$arr_data_rules[] = [
 			'condition' => [
 				'usia' => 'muda',
 				'lemak_tubuh' => 'kurang',
@@ -174,8 +181,9 @@ class Analisis extends CI_Controller
 				'ppp' => 'sangat_butuh',
 				'mixed' => 'tidak_butuh'
 			],
-		];
-		$arr_data_rules = [];
+		];*/
+
+		$arr_data_rules = [];//inisialisasi array
 		$db_rule = $this->db->get('rule')->result();
 		foreach ($db_rule as $key => $value) {
 			$arr_data_rules[] = [
@@ -196,8 +204,8 @@ class Analisis extends CI_Controller
 			];
 		}
 
-		foreach ($arr_data_rules as $key => $data_rules) {
-			$get_fuzzy = [];
+		foreach ($arr_data_rules as $key => $data_rules) {//$data_rue = output
+			$get_fuzzy = [];//inisialisasi untuk manggil tahap fuzzifikasi
 			foreach ($data_rules['condition'] as $kriteria => $himpunan) {
 				$get_fuzzy[] = $data_fuzzy[$kriteria][$himpunan];
 			}
@@ -205,13 +213,23 @@ class Analisis extends CI_Controller
 			$arr_data_rules[$key]['nilai'] = min($get_fuzzy);
 		}
 
-		$komposisi_aturan = [];
+		/*echo "<pre>";
+		var_dump($get_fuzzy);*///nilai rulenya
+
+		/*echo "<pre>";
+		var_dump($arr_data_rules);*///sebanyak rule
+
+		$komposisi_aturan = [];//inisialisasi array
 		foreach ($arr_data_rules as $key => $value) {
 			foreach ($value['rules'] as $k => $v) {
 				$komposisi_aturan[$k][$v]['data'][] = $value['nilai'];
 			}
 		}
 
+		/*echo "<pre>";
+		var_dump($komposisi_aturan);*///inisialisasi hasil masing" aturan
+
+//tahap 3 fungsi max
 		foreach ($komposisi_aturan as $key => $value) {
 			foreach ($value as $k => $v) {
 				$komposisi_aturan[$key][$k]['max'] = max($v['data']);
@@ -219,6 +237,8 @@ class Analisis extends CI_Controller
 				// unset($komposisi_aturan[$key][$k]['data']);
 			}
 		}
+		/*echo "<pre>";
+		var_dump($komposisi_aturan);*/
 
 		$himpunan_z['sangat_butuh'] = [55, 100];
 		$himpunan_z['tidak_butuh'] = [0, 35];
@@ -234,7 +254,10 @@ class Analisis extends CI_Controller
 			}
 		}
 
-		$hasil_per_produk = [];
+		/*echo "<pre>";
+		var_dump($komposisi_aturan);/*///nilai dari masing2 komposisi aturan 
+//tahap 4 defuzzifikasi
+		$hasil_per_produk = [];//inisialisasi hasil per produk
 		foreach ($komposisi_aturan as $key => $value) {
 			$top = 0;
 			$down = 0;
@@ -256,9 +279,10 @@ class Analisis extends CI_Controller
 		$data['mixed'] = $hasil_per_produk['mixed'];
 		$data['coba'] = $data_fuzzy;
 		$data['page'] = 'HasilAnalisis.php';
-		$this->load->view('Admin/menu', $data);
+		$this->load->view('Admin/Menu', $data);
 
-
+		/*echo "<pre>";
+		var_dump($hasil_per_produk);*/
 			// $this->session->set_flashdata('success', 'Tambah Produk berhasil');
 			// redirect('Analisis');
 		}
@@ -268,22 +292,22 @@ class Analisis extends CI_Controller
 	public function ubahAnalisis($id)
 	{
 		$where = array('id_analisis' => $id);
-		$data['analisis'] = $this->M_Analisis->getdataID($where, 'analisis')->result();
+		$data['analisis'] = $this->M_analisis->getdataID($where, 'analisis')->result();
 		$data['page'] = 'editAnalisis.php';
-		$this->load->view('admin/menu', $data);
+		$this->load->view('Admin/Menu', $data);
 	}
 
 	public function ubahhasil_analisis($id)
 	{
 		$where = array('id_analisis' => $id);
-		$data['getData'] = $this->M_Analisis->getDataHasilAnalisis($where, 'output')->result();
-		$this->load->view('admin/menu', $data);
+		$data['getData'] = $this->M_analisis->getDataHasilAnalisis($where, 'output')->result();
+		$this->load->view('Admin/Menu', $data);
 	}
 
 
 	public function proses_ubah($id)
 	{
-		$this->M_Analisis->updateAnalisis($id);
+		$this->M_analisis->updateAnalisis($id);
 		$this->session->set_flashdata('success', 'Ubah data berhasil');
 		redirect('Analisis', 'refresh');
 	}
@@ -293,7 +317,7 @@ class Analisis extends CI_Controller
 	function hapus_Analisis($id)
 	{
 		$where = array('id_analisis' => $id);
-		$this->M_Analisis->hapus($where, 'analisis');
+		$this->M_analisis->hapus($where, 'analisis');
 		redirect('Analisis', 'refresh');
 	}
 }

@@ -20,6 +20,8 @@
               <tr class="bg-group">
                 <th>Usia</th>
                 <th>Lemak Tubuh</th>
+                <th>Kadar Air</th>
+                <th>Postur Tubuh</th>
                 <th>Massa Tulang</th>
                 <th>Lemak Perut</th>
                 <th>Shake</th>
@@ -46,6 +48,22 @@
                   echo 'NORMAL';
                 }elseif($coba['lemak_tubuh']['kurang']<$coba['lemak_tubuh']['tinggi'] && $coba['lemak_tubuh']['tinggi']>$coba['lemak_tubuh']['normal']){
                   echo 'TINGGI';
+                }?>"></td>
+
+                <td><input type="text" name="kadar_air" value="<?php if($coba['kadar_air']['kurang'] > $coba['kadar_air']['tinggi'] && $coba['kadar_air']['kurang']>$coba['kadar_air']['normal']){
+                  echo 'KURANG';
+                }elseif($coba['kadar_air']['kurang']<$coba['kadar_air']['normal'] && $coba['kadar_air']['tinggi']<$coba['kadar_air']['normal']){
+                  echo 'NORMAL';
+                }elseif($coba['kadar_air']['kurang']<$coba['kadar_air']['tinggi'] && $coba['kadar_air']['tinggi']>$coba['kadar_air']['normal']){
+                  echo 'TINGGI';
+                }?>"></td>
+
+                <td><input type="text" name="postur_tubuh" value="<?php if($coba['postur_tubuh']['kurus'] > $coba['postur_tubuh']['gemuk'] && $coba['postur_tubuh']['kurus']>$coba['postur_tubuh']['ideal']){
+                  echo 'KURUS';
+                }elseif($coba['postur_tubuh']['kurus']<$coba['postur_tubuh']['ideal'] && $coba['postur_tubuh']['gemuk']<$coba['postur_tubuh']['ideal']){
+                  echo 'IDEAL';
+                }elseif($coba['postur_tubuh']['kurus']<$coba['postur_tubuh']['gemuk'] && $coba['postur_tubuh']['gemuk']>$coba['postur_tubuh']['ideal']){
+                  echo 'GEMUK';
                 }?>"></td>
 
                 <td><input type="text" name="massa_tulang" value="<?php if($coba['massa_tulang']['kurang'] > $coba['massa_tulang']['tinggi'] && $coba['massa_tulang']['kurang']>$coba['massa_tulang']['normal']){

@@ -11,9 +11,9 @@ class Admin extends CI_Controller{
 	}
  
 	function index(){
-		$data['page']='home.php';/*
+		$data['page']='Home.php';/*
 		$this->load->view('v_admin');*/
-		$this->load->view('Admin/menu',$data);
+		$this->load->view('Admin/Menu',$data);
 	}
 	
 }

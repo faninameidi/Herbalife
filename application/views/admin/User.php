@@ -22,8 +22,6 @@
               <th>Address</th>
               <th>Usia</th>
               <th>No.Telepon </th>
-              <th>Username </th>
-              <th>Password </th>
               <th>Image </th>
             </tr>
           </thead>
@@ -42,8 +40,6 @@
               <td><?php echo $key->address;?></td>
               <td><?php echo $key->usia;?></td>
               <td><?php echo $key->telp;?></td>
-              <td><?php echo $key->username;?></td>
-              <td><?php echo $key->password;?></td>
               <td>
             <image src="<?php echo base_url('Upload/'.$key->image) ?>" alt="" height="100" width="100">
              </td>

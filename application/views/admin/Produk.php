@@ -43,20 +43,19 @@
                 <tr class="bg-group">
                   <th width="5px">NO</th>
                   <th>Nama Produk</th>
-                  <th>Kode Produk</th>
+                  <th>Image</th>
                   <th>Keterangan</th> 
                   <th>Usia</th>
                   <th>Lemak Tubuh</th>
                   <th>Massa Tulang</th>
                   <th>Lemak Perut</th>
-                  <th>Image</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php 
                 $i=1;
-                foreach ($produk as $key) 
+                foreach ($produkherbal as $key) 
                 {
                    //$harga = number_format($key->harga,0,',','.');
 
@@ -64,14 +63,14 @@
                  <tr>
                   <td><?php echo $i; ?></td>
                   <td><?php echo $key->nama_produk;?></td>
-                  <td><?php echo $key->kode_produk;?></td>
+                  <td><img src="<?php echo base_url('Upload/'.$key->image) ?>" style="width: 100px;height: 100px;"></td>
                   <td><?php echo $key->keterangan;?></td>
                   <td><?php echo $key->usia;?></td>
                   <td><?php echo $key->lemak_tubuh;?></td>
                   <td><?php echo $key->massa_tulang;?></td>
-                  <td><?php echo $key->lemak_perut;?></td>
-                   <td><img src="<?php echo base_url('Upload/'.$key->image) ?>" style="width: 50px;height: 50px;"></td>
-                  <td>
+                  <td><?php
+                   echo $key->lemak_perut;?></td>
+                   <td>
                     <a href="<?= base_url() ?>Produk/ubahProduk/<?= $key->id_produk?>" class="btn btn-success"><span class="glyphicon glyphicon-edit"> Edit</span></a></button> &emsp;
                     <a href="<?= base_url() ?>Produk/hapus_produk/<?= $key->id_produk?>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"> Delete</span></a></button>
                   </td>

@@ -5,7 +5,7 @@ class Login extends CI_Controller{
  
     function __construct(){
         parent::__construct();      
-        $this->load->model('m_login');
+        $this->load->model('M_login');
         $this->load->helper('form');
         $this->load->helper('url');
  
@@ -18,11 +18,11 @@ class Login extends CI_Controller{
     {
         $username=$this->input->post('email');
         $password=$this->input->post('password');
-        $cek=$this->m_login->cek_login($username,$password);
+        $cek=$this->M_login->cek_login($username,$password);
         $tes=count($cek);
         if ($tes > 0 ) 
         {
-            $data_login=$this->m_login->cek_login($username,$password);
+            $data_login=$this->M_login->cek_login($username,$password);
             $firstname=$data_login->firstname;
             $lastname=$data_login->lastname;
             $address=$data_login->address;
@@ -44,10 +44,9 @@ class Login extends CI_Controller{
             'username' => $username,
             'password' => md5($password)
             );
-        $cek = $this->m_login->cek_login("admin",$where)->num_rows();
-        $cekuser = $this->m_login->cek_login("users",$where)->num_rows();
-        $id_user = $cekuser->{'id'};
-        if($cek > 0){
+        $cek = $this->M_login->cek_login("admin",$where)->num_rows();
+       
+        if($cek == true){
  
             $data_session = array(
                 'username' => $username,
@@ -56,24 +55,11 @@ class Login extends CI_Controller{
  
         $this->session->set_userdata($data_session);
  
-        redirect(base_url("users"));
+        redirect("Users");
     }         
-    if($cekuser > 0){
- 
-            $data_session = array(
-                'username' => $username,
-                'status' => "login",
-                'id' =>$id_user,
-            );
- 
-        $this->session->set_userdata($data_session);
- 
-        redirect(base_url("Welcome"));
-    }
-
     else{
         echo "Username dan password salah !";
-        redirect ('login');
+        redirect ('Login');
     }
            
  }
@@ -147,9 +133,9 @@ class Login extends CI_Controller{
         $username = $this->input->post('username');
         $password = md5($this->input->post('password'));
 
-                    $upload = $this->m_login->upload();
+                    $upload = $this->M_login->upload();
             if($upload['result'] == "success"){ // Jika proses upload sukses
-                $this->m_login->inputdata($upload);
+                $this->M_login->inputdata($upload);
                 $this->session->set_flashdata('success','Tambah Cake berhasil');
                 redirect('Login');
             }else{ // Jika proses upload gagal
@@ -166,7 +152,7 @@ class Login extends CI_Controller{
         //     'username' => $username,
         //     'password' => $password,
         // );
-        // $this->m_login->input_biodata($data,'users');
+        // $this->M_login->input_biodata($data,'users');
         // redirect('Login');
     }
     

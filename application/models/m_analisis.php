@@ -10,16 +10,13 @@ class M_Analisis extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('analisis');
 		$this->db->order_by('id_analisis','DESC');
-		$query = $this->db->get();
-		return $query->result();
+		$query = $this->db->get();//untuk mendapatkan database
+		return $query->result();//mengembalikan hasil object
 	}
 
 	public function getDataHasilAnalisis($id)
 	{
-		$this->db->select('*');
-		$this->db->from('output');
-		$this->db->where('fk_id_analisis',$id);
-		$query = $this->db->get();
+		$query= $this->db->query("SELECT output.*, analisis.nama as nama, analisis.usia as getusia, analisis.lemak_tubuh as getlemaktubuh, analisis.kadar_air as getkadarair, analisis.postur_tubuh as getposturtubuh, analisis.massa_tulang as getmassatulang, analisis.lemak_perut as getlemakperut FROM output JOIN analisis ON analisis.id_analisis = output.fk_id_analisis where output.fk_id_analisis ='$id'");
 		return $query->result();
 	}
 

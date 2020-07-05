@@ -19,7 +19,7 @@ class Hasil extends CI_Controller {
 	{
 		$data['hasil']=$this->M_Hasil->getDataHasil();
 		$data['page']='Hasil.php';
-		$this->load->view('Admin/menu',$data);
+		$this->load->view('Admin/Menu',$data);
 	}
 }
 ?>

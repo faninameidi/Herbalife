@@ -14,7 +14,7 @@ class M_Rule extends CI_Model {
 		return $query->result();
 	}
 
-	public function inputData($upload)
+	public function inputData()
 	{
 		$data = array(
 			'usia'=>$this->input->post('usia'),

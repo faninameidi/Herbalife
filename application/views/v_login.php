@@ -7,10 +7,10 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico in the root directory -->
-         <link rel="icon" href="<?php echo base_url()?>assets/assetshome/img/core-img/icon3.png">
-        <link rel="stylesheet" href="<?php echo base_url()?>assets/css/vendor.css">
-        <link rel="stylesheet" href="<?php echo base_url()?>assets/css/app.css">
-        <link rel="stylesheet" href="<?php echo base_url()?>aset/css/style.css">
+        <link rel="icon" href="<?php echo base_url();?>/assets/assetshome/img/core-img/icon3.png">
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/vendor.css">
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/app.css">
+        <link rel="stylesheet" href="<?php echo base_url();?>aset/css/style.css">
         <!-- Theme initialization -->
         <script>
             var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
@@ -18,11 +18,11 @@
             var themeName = themeSettings.themeName || '';
             if (themeName)
             {
-                document.write('<link rel="stylesheet" id="theme-style" href="<?php echo base_url()?>assets/css/login/app-' + themeName + '.css">');
+                document.write('<link rel="stylesheet" id="theme-style" href="<?php echo base_url();?>assets/css/login/app-' + themeName + '.css">');
             }
             else
             {
-                document.write('<link rel="stylesheet" id="theme-style" href="<?php echo base_url()?>assets/css/login/app.css">');
+                document.write('<link rel="stylesheet" id="theme-style" href="<?php echo base_url();?>assets/css/login/app.css">');
             }
         </script>
     </head>
@@ -34,21 +34,11 @@
             <div class="auth-container">
                 <div class="card">
                     <header class="auth-header">
-                        <!-- <h1 class="auth-title">
-                            <div class="logo"> -->
-
-                               <!--  <span class="l l1"></span>
-                                <span class="l l2"></span> -->
-                              <!--   <span class="l l3"></span>
-                                <span class="l l4"></span>
-                                <span class="l l5"></span> -->
-                            <!-- </div> Ketahanan Pangan </h1> -->
-                            <!--  <img src="<?php echo base_url()?>assets/assetshome/img/core-img/logo4.png" alt=""> -->
                             <h3>Silahkan Masuk</h3>
                     </header>
                     <div class="auth-content">
                         <!-- <p class="text-center">Masuk</p> -->
-                        <?php echo form_open('login/aksi_login'); ?>
+                        <?php echo form_open('Login/aksi_login'); ?>
                             <div class="form-group">
                                 <p align="center"><label for="username">Username</label></p>
                                 <input type="text" class="form-control underlined" name="username" id="username" placeholder="Username" required> </div>
@@ -65,19 +55,19 @@
                             <font color="Green"><?php echo validation_errors()?></font>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-block btn-primary">Masuk</button>
-                            </div>
+                            </div><!-- 
                              <div class="form-group">
                                 <a href="<?=site_url ()?>welcome" class="btn btn-block btn-danger">Kembali
                                 </a>
-                            </div>
+                            </div> -->
 
 
                             <?php echo form_close(); ?>
                              <div class="form-group">
-                                <p class="text-muted text-center">Do not have an account?
+                                <!-- <p class="text-muted text-center">Do not have an account?
                                     <a href="<?php echo base_url('Login/register') ?>">Sign Up!
                                     </a>
-                                    </p>
+                                    </p> -->
                             </div> 
                         </form>
                     </div>

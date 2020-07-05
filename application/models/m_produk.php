@@ -47,7 +47,6 @@ class M_Produk extends CI_Model {
 	{
 		$data = array(
 			'nama_produk'=>$this->input->post('nama_produk'),
-			'kode_produk'=>$this->input->post('kode_produk'),
 			'keterangan'=>$this->input->post('keterangan'),
 			'usia'=>$this->input->post('usia'),
 			'lemak_tubuh'=>$this->input->post('lemak_tubuh'),
@@ -70,7 +69,6 @@ class M_Produk extends CI_Model {
 	public function updateProduk($id,$upload_name = null){
 		$data = array(
 			'nama_produk'=>$this->input->post('nama_produk'),
-			'kode_produk'=>$this->input->post('kode_produk'),
 			'keterangan'=>$this->input->post('keterangan'),
 			'usia'=>$this->input->post('usia'),
 			'lemak_tubuh'=>$this->input->post('lemak_tubuh'),

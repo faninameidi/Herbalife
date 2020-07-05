@@ -8,7 +8,7 @@ class Rule extends CI_Controller {
 		parent::__construct();
 		$this->load->library(array('form_validation','session'));
 
-		$this->load->model('M_Rule');
+		$this->load->model('M_rule');
 		if(!$this->session->userdata('username'))
 		{
 			redirect('Login');
@@ -17,15 +17,15 @@ class Rule extends CI_Controller {
 
 	public function index()
 	{
-		$data['rule']=$this->M_Rule->getDataRule();
+		$data['rule']=$this->M_rule->getDataRule();
 		$data['page']='Rule.php';
-		$this->load->view('Admin/menu',$data);
+		$this->load->view('Admin/Menu',$data);
 	}
 
 	public function addRule()
 	{
 		$data['page']='addRule.php';
-		$this->load->view('Admin/menu',$data);
+		$this->load->view('Admin/Menu',$data);
 	}
 
 	public function simpanRule()
@@ -40,9 +40,9 @@ class Rule extends CI_Controller {
 
 		if($this->form_validation->run()==FALSE){
 			$data['page']='addRule.php';
-			$this->load->view('Admin/menu',$data);
+			$this->load->view('Admin/Menu',$data);
 		}else{
-			$this->M_Rule->inputdata();
+			$this->M_rule->inputdata();
 			$this->session->set_flashdata('success','Tambah Produk berhasil');
 			redirect('Rule');
 		}
@@ -52,14 +52,14 @@ class Rule extends CI_Controller {
 	public function ubahRule($id)
 	{
 		$where = array('id_rule' => $id);
-		$data['rule'] = $this->M_Rule->getdataID($where,'rule')->result();
+		$data['rule'] = $this->M_rule->getdataID($where,'rule')->result();
 		$data['page']='editRule.php';
-		$this->load->view('admin/menu',$data);
+		$this->load->view('Admin/Menu',$data);
 	}
 
 	public function proses_ubah($id)
 	{
-			$this->M_Rule->updateRule($id);
+			$this->M_rule->updateRule($id);
 			$this->session->set_flashdata('success','Ubah data berhasil');
 				redirect('Rule','refresh');
 			}			
@@ -68,7 +68,7 @@ class Rule extends CI_Controller {
 
 		function hapus_Rule($id){
 			$where = array('id_rule' => $id);
-			$this->M_Rule->hapus($where,'rule');
+			$this->M_rule->hapus($where,'rule');
 			redirect('Rule','refresh');
 		}
 	}

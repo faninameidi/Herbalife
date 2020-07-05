@@ -34,10 +34,10 @@
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <?php $this->load->view('admin/navbar'); ?>
+        <?php $this->load->view('Admin/Navbar'); ?>
 
         <!-- top navigation -->
-       <?php $this->load->view('admin/top'); ?>
+       <?php $this->load->view('Admin/Top'); ?>
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -45,7 +45,7 @@
         <!-- /page content -->
 
         <!-- footer content -->
-         <?php $this->load->view('admin/footer'); ?>
+         <?php $this->load->view('Admin/Footer'); ?>
         <!-- /footer content -->
       </div>
     </div>

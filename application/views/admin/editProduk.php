@@ -24,14 +24,6 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label"> Kode Produk </label>
-            <div class="col-sm-8">
-              <input type="hidden" name="kode_produk" value="<?php echo $key->kode_produk ?>">
-              <input type="text" name="kode_produk" class="form-control" placeholder="Kode Produk"  value="<?php echo $key->kode_produk ?>" >
-            </div>
-          </div>
-
-          <div class="form-group row">
             <label class="col-sm-3 col-form-label"> Keterangan </label>
             <div class="col-sm-8">
               <input type="hidden" name="keterangan" value="<?php echo $key->keterangan ?>">
